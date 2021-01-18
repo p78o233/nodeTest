@@ -70,13 +70,7 @@ dbController.post('/insertOne',jsonParser,function (req, res) {
         }
         else {
             // 新增成功后查出id
-            conn.connection.query("SELECT LAST_INSERT_ID()",(err,data)=>{
-                res.send({
-                    code: 1,
-                    msg: '新增成功',
-                    data:{id:data[0]['LAST_INSERT_ID()']}//最后新增的id
-                })
-            })
+           res.send(R.retrunResult(true,0,result.insertId,""));
         }
     });
 })
