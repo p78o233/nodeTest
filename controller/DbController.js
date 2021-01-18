@@ -50,13 +50,34 @@ dbController.get('/getQueryPage/:page/:pageSize', function (req, res) {
 // 新增一条
 dbController.post('/insert',jsonParser,function (req, res) {
     let addSql = 'insert into test (name,cdNum,createTime,score,host) values (?,?,?,?,?)'
-    let addSqlParams = ['p98o2',1,Date.parse(new Date()),12.5,'127.0.0.1'];
+    let addSqlParams = ['p98o2',1,new Date(),12.5,'127.0.0.1'];
     conn.connection.query(addSql,addSqlParams,function (err, result) {
         if(err){
             console.log('[INSERT ERROR] - ',err.message);
             return;
         }
         res.send(R.retrunResult(true,0,result,""));
+    });
+})
+// 新增一条返回主键
+dbController.post('/insertOne',jsonParser,function (req, res) {
+    let addSql = 'insert into test (name,cdNum,createTime,score,host) values (?,?,?,?,?)'
+    let addSqlParams = ['p98o2',1,new Date(),12.5,'127.0.0.1'];
+    conn.connection.query(addSql,addSqlParams,function (err, result) {
+        if(err){
+            console.log('[INSERT ERROR] - ',err.message);
+            return;
+        }
+        else {
+            // 新增成功后查出id
+            conn.connection.query("SELECT LAST_INSERT_ID()",(err,data)=>{
+                res.send({
+                    code: 1,
+                    msg: '新增成功',
+                    data:{id:data[0]['LAST_INSERT_ID()']}//最后新增的id
+                })
+            })
+        }
     });
 })
 // 批量插入
