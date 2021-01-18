@@ -1,4 +1,4 @@
-// 数据库链接   cnpm install mysql，只会在server里面创建一次
+// 数据库链接   cnpm install mysql --save，只会在server里面创建一次
 var mysqlConfig      =  require('mysql');
 var connection = mysqlConfig.createConnection({
     host : '127.0.0.1',
