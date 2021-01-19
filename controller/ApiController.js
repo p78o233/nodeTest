@@ -12,7 +12,25 @@ var jsonParser = bodyParser.json();
 //============================================================================================
 //参数获取例子
 
-
+/**
+ * @api {get} /api/login 用户登录
+ * @apiDescription 用户登录
+ * @apiName login
+ * @apiGroup api模块
+ * @apiParam {string} username 用户名
+ * @apiParam {string} password 密码
+ * @apiSuccess {json} result
+ * @apiSuccessExample {json} Success-Response:
+ *  {
+ *      "success" : "true",
+ *      "result" : {
+ *          "username" : "用户名",
+ *          "password" : "密码"
+ *      }
+ *  }
+ * @apiSampleRequest http://localhost:3000/api/index/login
+ * @apiVersion 0.0.1
+ */
 apiController.get('/index', function (req, res) {
     res.send('Hello World');
 })

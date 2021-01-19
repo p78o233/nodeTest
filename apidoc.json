@@ -1,0 +1,14 @@
+//文档生成步骤
+//1、在根目录创建这个文件apidoc.json
+//2、cnpm install apidoc -g 全局安装 装一次就行了
+//3、apidoc -h  检测是否安装成功
+//4、执行  apidoc -i controller/ -o public/apidoc/ 就会把controller目录下的全部注释生成文档，生成的位置在public/apidoc下面
+//5、访问 ip:port/static/apidoc/index.html即接口文档
+
+{
+  "name": "node版前台接口文档",
+  "version": "1.0.0",
+  "description": "接口文档",
+  "title": "接口文档测试",
+  "url" : "http://127.0.0.1:8081"
+}
