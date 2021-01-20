@@ -73,7 +73,7 @@ apiController.get('/getRestParams/:id/:name',function (req, res) {
     res.send(R.retrunResult(true,req.params,""));
 })
 // emoji数据
-apiController.get("/getEmojji",function (req,res) {
+apiController.get("/getEmoji",function (req,res) {
     var responseData = {
         "name":req.query.name,
     }
