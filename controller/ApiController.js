@@ -54,7 +54,8 @@ apiController.post('/getJson',jsonParser,function (req, res) {
         "name":req.body.userName,
         "age":req.body.age
     }
-    res.send(R.retrunResult(true,0,responseData,""));
+    // res.send(R.retrunResult(true,0,responseData,""));
+    res.send(R.retrunResult(true,0,responseData,"",req));
 })
 
 // 获取header数据
