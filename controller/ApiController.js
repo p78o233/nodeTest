@@ -72,6 +72,12 @@ apiController.get('/getRestParams/:id/:name',function (req, res) {
     console.log("name = "+ req.params.name)
     res.send(R.retrunResult(true,req.params,""));
 })
-
+// emoji数据
+apiController.get("/getEmojji",function (req,res) {
+    var responseData = {
+        "name":req.query.name,
+    }
+    res.send(R.retrunResult(true,responseData,""));
+})
 //导出该路由
 module.exports = apiController;

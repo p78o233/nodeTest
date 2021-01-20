@@ -5,7 +5,8 @@ var connection = mysqlConfig.createConnection({
     port : 3306,
     user : 'root',
     password : 'root',
-    database : 'oa'
+    database : 'oa',
+    charset:"utf8mb4"
 });
 connection.connect();
 

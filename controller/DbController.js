@@ -62,7 +62,7 @@ dbController.post('/insert',jsonParser,function (req, res) {
 // 新增一条返回主键
 dbController.post('/insertOne',jsonParser,function (req, res) {
     let addSql = 'insert into test (name,cdNum,createTime,score,host) values (?,?,?,?,?)'
-    let addSqlParams = ['p98o2',1,new Date(),12.5,'127.0.0.1'];
+    let addSqlParams = ['p98o2',1,new Date(),12.5,'😀'];
     conn.connection.query(addSql,addSqlParams,function (err, result) {
         if(err){
             console.log('[INSERT ERROR] - ',err.message);
