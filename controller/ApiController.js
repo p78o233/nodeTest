@@ -8,6 +8,8 @@ let apiController = express.Router();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
+// 定时任务
+const schedule = require('node-schedule');
 
 //============================================================================================
 //参数获取例子
@@ -35,49 +37,62 @@ apiController.get('/index', function (req, res) {
     res.send('Hello World');
 })
 // 返回统一格式的json数据
-apiController.get('/sameJson',function (req, res) {
-    res.send(R.retrunResult(true,0,"",""));
+apiController.get('/sameJson', function (req, res) {
+    res.send(R.retrunResult(true, 0, "", ""));
 })
 
 // 接收get方法 url参数
-apiController.get('/getUrlParam',function (req, res) {
+apiController.get('/getUrlParam', function (req, res) {
     var responseData = {
-        "name":req.query.name,
-        "age":req.query.age
+        "name": req.query.name,
+        "age": req.query.age
     }
-    res.send(R.retrunResult(true,0,responseData,""));
+    res.send(R.retrunResult(true, 0, responseData, ""));
 })
 
 // 获取application/json数据
-apiController.post('/getJson',jsonParser,function (req, res) {
+apiController.post('/getJson', jsonParser, function (req, res) {
     var responseData = {
-        "name":req.body.userName,
-        "age":req.body.age
+        "name": req.body.userName,
+        "age": req.body.age
     }
     // res.send(R.retrunResult(true,0,responseData,""));
-    res.send(R.retrunResult(true,0,responseData,"",req));
+    res.send(R.retrunResult(true, 0, responseData, "", req));
 })
 
 // 获取header数据
-apiController.get('/getHeader',function (req, res) {
+apiController.get('/getHeader', function (req, res) {
     var responseData = {
-        "token":req.get("token")
+        "token": req.get("token")
     }
-    res.send(R.retrunResult(true,0,responseData,""));
+    res.send(R.retrunResult(true, 0, responseData, ""));
 })
 
 // 获取rest参数
-apiController.get('/getRestParams/:id/:name',function (req, res) {
-    console.log("id = "+ req.params.id)
-    console.log("name = "+ req.params.name)
-    res.send(R.retrunResult(true,req.params,""));
+apiController.get('/getRestParams/:id/:name', function (req, res) {
+    console.log("id = " + req.params.id)
+    console.log("name = " + req.params.name)
+    res.send(R.retrunResult(true, req.params, ""));
 })
 // emoji数据
-apiController.get("/getEmoji",function (req,res) {
+apiController.get("/getEmoji", function (req, res) {
     var responseData = {
-        "name":req.query.name,
+        "name": req.query.name,
     }
-    res.send(R.retrunResult(true,responseData,""));
+    res.send(R.retrunResult(true, responseData, ""));
 })
+// 定时任务
+apiController.get("/timmer", function (req, res) {
+    //每分钟的第30秒定时执行一次:
+    schedule.scheduleJob('3 * * * * *', () => {
+        console.log('scheduleCronstyle:' + new Date());
+        timmer()
+    });
+    res.send(R.retrunResult(true, "", ""));
+})
+var i = 0;
+function timmer(){
+    console.log(i++)
+}
 //导出该路由
 module.exports = apiController;
