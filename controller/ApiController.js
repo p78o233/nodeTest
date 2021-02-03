@@ -8,8 +8,7 @@ let apiController = express.Router();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
-// 定时任务
-const schedule = require('node-schedule');
+
 
 //============================================================================================
 //参数获取例子
@@ -81,18 +80,5 @@ apiController.get("/getEmoji", function (req, res) {
     }
     res.send(R.retrunResult(true, responseData, ""));
 })
-// 定时任务
-apiController.get("/timmer", function (req, res) {
-    //每分钟的第30秒定时执行一次:
-    schedule.scheduleJob('3 * * * * *', () => {
-        console.log('scheduleCronstyle:' + new Date());
-        timmer()
-    });
-    res.send(R.retrunResult(true, "", ""));
-})
-var i = 0;
-function timmer(){
-    console.log(i++)
-}
 //导出该路由
 module.exports = apiController;

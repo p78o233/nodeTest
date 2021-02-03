@@ -6,11 +6,15 @@ var jsonParser = bodyParser.json();
 // 统一返回值
 var R = require('./common/R.js');
 
+// 定时任务
+// npm install node-schedule --save
+// const schedule = require('node-schedule');
+
 //============================================这两个一定要写在路由的前面不然不起效===================================================================================
 let logFlag = false;
 // 拦截器
-app.use('/*',jsonParser, function (req, res, next) {
-    var openPage = ['/api/index', '/json', '/json/version','/switchLogFlag'];
+app.use('/*', jsonParser, function (req, res, next) {
+    var openPage = ['/api/index', '/json', '/json/version', '/switchLogFlag'];
     var url = req.originalUrl;
     // 过滤url
     if (openPage.indexOf(url) > -1) {
@@ -18,12 +22,13 @@ app.use('/*',jsonParser, function (req, res, next) {
         next();
     } else {
         // 打印出请求的方法，参数
-        if(logFlag) {
+        if (logFlag) {
             logIn(req, res)
         }
         next();
     }
 });
+
 // 打印出请求的方法，参数
 function logIn(req, res) {
     // 请求的路径
@@ -39,14 +44,14 @@ function logIn(req, res) {
         console.log(key + ":" + req.query[key])
     }
     console.log(JSON.stringify(req.query))
-    if(req.method === "POST") {
+    if (req.method === "POST") {
         console.log("================application/json数据=====================")
-        if(req.body.length == 0) {
+        if (req.body.length == 0) {
             for (var key in req.body) {
                 console.log(key + ":" + req.body[key])
             }
-        }else{
-            for(let i = 0;i<req.body.length;i++){
+        } else {
+            for (let i = 0; i < req.body.length; i++) {
                 for (var key in req.body[i]) {
                     console.log(key + ":" + req.body[i][key])
                 }
@@ -90,13 +95,13 @@ var mysql = require('./common/MysqlConfig.js');
 
 //====================================这些要放在404之前执行===================================================================
 // 控制是否打印入参参数
-app.get('/switchLogFlag',function (req,res) {
-    if(req.query.logFlag === "1"){
+app.get('/switchLogFlag', function (req, res) {
+    if (req.query.logFlag === "1") {
         logFlag = true
-    }else if(req.query.logFlag === "0"){
+    } else if (req.query.logFlag === "0") {
         logFlag = false
     }
-    res.send(R.retrunResult(true,0,logFlag,"操作成功"));
+    res.send(R.retrunResult(true, 0, logFlag, "操作成功"));
 })
 
 //404判断
@@ -114,4 +119,8 @@ var server = app.listen(8081, function () {
 
     console.log("应用实例，访问地址为 http://%s:%s", host, port)
 
+    // 定时任务
+    // schedule.scheduleJob('3 * * * * *', () => {
+    //     console.log('scheduleCronstyle:' + new Date());
+    // });
 })
